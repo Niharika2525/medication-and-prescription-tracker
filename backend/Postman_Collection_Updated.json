@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "medication-tracker-api",
+		"name": "Medication Tracker API",
+		"description": "Complete API collection for Medication and Prescription Tracker",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"PATIENT\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/register",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"auth",
+								"register"
+							],
+							"port": "8080"
+						}
+					}
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"patient@test.com\",\n  \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/auth/login",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							],
+							"port": "8080"
+						}
+					}
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/auth/me",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"auth",
+								"me"
+							],
+							"port": "8080"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Patient APIs",
+			"item": [
+				{
+					"name": "Get Medications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/patient/medications",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"patient",
+								"medications"
+							],
+							"port": "8080"
+						}
+					}
+				},
+				{
+					"name": "Get Prescriptions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/patient/prescriptions",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"patient",
+								"prescriptions"
+							],
+							"port": "8080"
+						}
+					}
+				},
+				{
+					"name": "Request Refill",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"prescriptionId\": \"64a1b2c3d4e5f67890\",\n  \"notes\": \"Need refill for monthly supply\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/patient/refills",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"patient",
+								"refills"
+							],
+							"port": "8080"
+						}
+					}
+				},
+				{
+					"name": "Get Doctors",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/patient/doctors",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"patient",
+								"doctors"
+							],
+							"port": "8080"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Doctor APIs",
+			"item": [
+				{
+					"name": "Get Patients",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/doctor/patients",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"doctor",
+								"patients"
+							],
+							"port": "8080"
+						}
+					}
+				},
+				{
+					"name": "Create Prescription",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"patientId\": \"64a1b2c3d4e5f67890\",\n  \"medicationList\": [\n    {\n      \"name\": \"Aspirin\",\n      \"dosage\": \"500mg\",\n      \"frequency\": \"Once daily\",\n      \"startDate\": \"2024-01-01\",\n      \"endDate\": \"2024-12-31\"\n    }\n  ],\n  \"dosage\": \"As directed\",\n  \"instructions\": \"Take with food\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/doctor/prescriptions",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"doctor",
+								"prescriptions"
+							],
+							"port": "8080"
+						}
+					}
+				},
+				{
+					"name": "Get Prescription History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/doctor/history",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"doctor",
+								"history"
+							],
+							"port": "8080"
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin APIs",
+			"item": [
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/admin/users",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"admin",
+								"users"
+							],
+							"port": "8080"
+						}
+					}
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{jwt_token}}"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/api/admin/users/{{userId}}",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"admin",
+								"users",
+								"{{userId}}"
+							],
+							"port": "8080"
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "jwt_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "64a1b2c3d4e5f67890",
+			"type": "string"
+		}
+	]
+}

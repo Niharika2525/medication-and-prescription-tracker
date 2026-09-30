@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Java build files
+backend/target/
+
+# Frontend build files
+frontend/dist/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local configuration
+application-local.properties
+backend/src/main/resources/application-local.properties
+
+# IDE settings
+.vscode/
+.idea/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# ZIP files
+*.zip
